@@ -16,10 +16,10 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({ darkMode, setDarkMode }) => {
   return (
           <button
         onClick={toggleDarkMode}
-        className={`flex items-center space-x-2 px-3 py-[5px] rounded-full shadow-md transition-colors duration-100 hover:shadow-lg focus:outline-none justify-center ${
+        className={`flex items-center space-x-2 px-3 py-[5px] rounded-full shadow-md transition-colors hover:shadow-lg focus:outline-none justify-center ${
           darkMode
-            ? 'bg-yellow-100/80 text-black hover:bg-yellow-400 rounded-full'
-            : 'bg-black/80 text-white hover:bg-blue-500 rounded-full backdrop-blur-3xl border border-black/40'
+            ? 'bg-white/80 text-black hover:bg-yellow-400 rounded-full'
+            : 'bg-black/80 text-white hover:bg-blue-500 rounded-full backdrop-blur-3xl border border-black/40 dark:border-white/80'
         }`} 
       >
         {darkMode ? (

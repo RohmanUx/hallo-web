@@ -28,7 +28,7 @@ export class ProfileRouter {
     this.router.patch(
       '/profile',
       verifyToken,
-      uploader('/profile', 'USR').single('img'),
+      uploader('/profile', 'EVE').array('eve',3),
       this.profileController.updateProfileUser,
     );
   }

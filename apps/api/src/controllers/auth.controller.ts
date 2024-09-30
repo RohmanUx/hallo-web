@@ -179,7 +179,11 @@ export class AuthController {
       const userId = res.locals.decrypt.id;
 
       const user = await prisma.user.findUnique({
-        where: { id: userId },
+        where: { id: userId }, 
+        include: {
+          userprofile: true,
+          images: true, 
+        }
       });
 
       const profile = await prisma.userprofile.findFirst({
@@ -203,15 +207,15 @@ export class AuthController {
           role: user.role,
           points: user.points,
           balance: user.balance,
-          image: profile?.image,
-          token,
+          images: user.images,  
+          token, 
         },
       });
     } catch (error) {
       console.error(error);
       next({ success: false, message: 'Failed to fetch user data.' });
     }
-  }
+  } 
 
   async forgotPassword(req: Request, res: Response, next: NextFunction) {
     try {

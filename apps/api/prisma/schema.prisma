@@ -211,7 +211,8 @@ model user {
   event            event[]
   historyuser      historyuser[]
   point            point[] 
-    testimonial      testimonial []
+    testimonial      testimonial [] 
+    images           image[]
   ticket           ticket[]
   user             user?           @relation("userTouser", fields: [referredBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "User_fk5")
   other_user       user[]          @relation("userTouser")
@@ -241,7 +242,7 @@ model userprofile {
   lastName    String?    @db.VarChar(255)
   gender      gender?
   dateOfBirth DateTime? @db.Date
-  image            String?           @db.VarChar(500)
+  images       image[]
   address     String?    @db.VarChar(255)
   phoneNumber String?    @db.VarChar(255)
   isAdded     Boolean?    @default(false)
@@ -271,11 +272,17 @@ model BlacklistToken {
   createdAt DateTime @default(now()) @db.Timestamp(0)
 }
 
-model image{
+model image {
   id Int @id @default(autoincrement())
   path String 
-  eventId Int 
-  event event @relation(fields: [eventId], references: [id])
+  eventId Int? 
+  event event?  @relation(fields: [eventId], references: [id]) 
+   userprofileId Int?         // Nullable for images associated with user profiles
+   userprofile  userprofile? @relation(fields: [userprofileId], references: [id])
+   userId Int?         // Nullable for images associated with user profiles
+   user  user? @relation(fields: [userId], references: [id])
+
+  createdAt     DateTime     @default(now()) @db.Timestamp(0)
 }
 
 enum paid_status{

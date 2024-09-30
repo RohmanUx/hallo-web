@@ -29,7 +29,7 @@ export class EventController {
   //   }
   // }
 
-  // untuk tampilan eventId di halaman home 
+  // untuk tampilan eventId di halaman home
   async getAllEvents(req: Request, res: Response, next: NextFunction) {
     try {
       const page = parseInt(req.query.page as string) || 1;
@@ -99,9 +99,9 @@ export class EventController {
       });
     }
   }
-  
+
   // melihat event berdasarkan milik admin (userId)
-    async getEventByAdmin(req: Request, res: Response, next: NextFunction) {
+  async getEventByAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 8;
@@ -175,8 +175,7 @@ export class EventController {
           totalPages: Math.ceil(totalEvents / limit),
         },
       });
-
-         } catch (error) {
+    } catch (error) {
       console.error(error);
       return next({
         status: 500,
@@ -184,8 +183,8 @@ export class EventController {
         // Provide the error message for debugging
       });
     }
-  } 
-  
+  }
+
   // userId
   async getEvent(req: Request, res: Response, next: NextFunction) {
     try {
@@ -257,7 +256,7 @@ export class EventController {
       });
     }
   }
-  async addEvent(req: Request, res: Response, next: NextFunction) {
+  async addEvent (req: Request, res: Response, next: NextFunction) {
     try {
       const {
         title,

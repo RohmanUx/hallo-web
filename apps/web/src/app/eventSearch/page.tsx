@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useCallback, Suspense, useRef } from 'react';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -39,16 +39,8 @@ const CategorySeach: React.FC = () => {
   const [currentCategory, setCurrentCategory] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const router = useRouter();
-  
-    const debouncedSearchRef = useRef(debounce((query: string) => {
-    const queryParams = new URLSearchParams();
-    if (query) {
-      queryParams.set('searchTerm', query);
-    }
-    router.push(`/eventSearch?${queryParams.toString()}`);
-  }, 300)); // Adjust the debounce time as needed
-
-
+  // const searchParams = useRouter ( ) ;
+ 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -82,32 +74,17 @@ const CategorySeach: React.FC = () => {
     router.push(`/eventSearch/${eventId}`);
   };
 
-  // const handleSearchChange = useCallback(
-  //   debounce((query: string) => {
-  //     setSearchTerm(query);
-  //     const queryParams = new URLSearchParams();
-  //     if (query) {
-  //       queryParams.set('searchTerm', query);
-  //     }
-  //     router.push(`/eventSearch?${queryParams.toString()}`);
-  //   }, 0),
-  //   [router, debounce, setSearchTerm],
-  // );
-  // const handleSearchChange = useCallback(
-  //   debounce((query: string) => {
-  //     setSearchTerm(query);
-  //     const queryParams = new URLSearchParams();
-  //     if (query) {
-  //       queryParams.set('searchTerm', query);
-  //     }
-  //     router.push(`/eventSearch?${queryParams.toString()}`);
-  //   }, 300), // Adjust the debounce time as needed
-  //   [ ] // Only include router in dependencies
-  // ); 
-  const handleSearchChange = useCallback((query: string) => {
-    setSearchTerm(query);
-    debouncedSearchRef.current(query);
-  }, []);
+  const handleSearchChange = useCallback(
+    debounce((query: string) => {
+      setSearchTerm(query);
+      const queryParams = new URLSearchParams();
+      if (query) {
+        queryParams.set('searchTerm', query);
+      }
+      router.push(`/eventSearch?${queryParams.toString()}`);
+    }, 0),
+    [router, debounce, setSearchTerm],
+  );
 
   const paginate = (events: Event[]) => {
     const indexOfLastEvent = currentPage * eventsPerPage;

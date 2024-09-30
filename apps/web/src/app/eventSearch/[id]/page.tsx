@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import withRole from '@/hoc/roleGuard';
 import Markdown from 'markdown-to-jsx';
+import { ClassNames } from '@emotion/react';
 import {
   Carousel,
   CarouselContent,
@@ -285,22 +286,22 @@ const EventDetailPage: React.FC<Props> = ({ params }: Props) => {
           <ToastContainer />
           <div className="relative w-96 h-[380px] flex mb-4">
             {event.title.length > 0 && (
-              <Carousel>
+              <Carousel className='flex items-center'>
                 <CarouselContent
                   style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                 >
                   {event.images.map((image) => (
                     <CarouselItem
                       key={image.id}
-                      className="flex-shrink-0 w-[300px] h-[380px] "
+                      className="flex-shrink-0 "
                     >
                       <Image
                         src={`http://localhost:8000${image.path}`}
                         alt={event.title}
-                        width={300}
-                        height={380}
+                        width={500}
+                        height={580}
                         objectFit="layout"
-                        className="my-5 shadow-sm w-full h-auto max-w-full bg-black/40"
+                        className="my-5 shadow-sm w-[800px] h-[400px] bg-black/40"
                       />
                     </CarouselItem>
                   ))}
@@ -322,7 +323,7 @@ const EventDetailPage: React.FC<Props> = ({ params }: Props) => {
               </Carousel>
             )}
           </div>
-          <div className="bg-gray-50 flex rounded-sm font-sans flex-col py-5 text-gray-100">
+          <div className="bg-gray-50 flex rounded-sm font-sans flex-col py-5 mt-10 text-gray-100">
             <h1 className="text-2xl md:text-3xl font-medium text-gray-900 font-sans uppercase">
               {event.title}
             </h1>

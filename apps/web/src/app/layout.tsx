@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { createTheme } from '@mui/material/styles';
 import './globals.css';
 import ThemeButton from './dashboard/cms/mode'; // Import your ThemeButton component
 import QueryProvider from '@/utils/provider/QueryProvider';

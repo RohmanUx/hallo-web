@@ -47,16 +47,15 @@ const LoginPage = () => {
 
   return (
     <div className="pt-0 h-screen">
-      <div className="h-screen flex items-center pt-0">
-        <Navbar />
         <Image
           src="/Untitled design.png"
           alt="Login Background"
-          layout="fill"
+          layout="fill" 
           objectFit="cover"
-          className="absolute inset-0 -z-10 pt-10"
+          className="absolute inset-0 z-10 pt-10"
         />
-        <div className="w-96 bg-slate-100/60 m-auto shadow-lg rounded-md p-7 backdrop-blur-3xl">
+      <div className="h-screen flex inset-0 items-center pt-0 bg-white/80 dark:bg-black/80">
+                <div className="w-96 bg-slate-100/60 m-auto shadow-lg rounded-md p-7 backdrop-blur-3xl z-10">
           <h1 className="text-center font-semibold text-2xl">LOGIN</h1>
           <div className="flex flex-col justify-between mt-4">
             <div>
@@ -92,12 +91,13 @@ const LoginPage = () => {
               </button>
             </div>
             <div className="text-center">
-              <a href="/forgot-password" className="text-gray-950">
-                Reset password? if not have account{' '}
-                <Link href="/register" className="underline">
+              <Link href="/forgot-password" className="text-gray-950">
+                Reset password? 
+              </Link> 
+              <span> or </span> 
+                <Link href="/register" className="ml-1 underline">
                   Register Now
                 </Link>
-              </a>
             </div>
           </div>
         </div>

@@ -49,9 +49,9 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
     onSuccess: (data) => {
       console.log(data.result);
       localStorage.setItem('token', data.result.token);
-      router.replace('/'); 
+      router.replace('/');
       toast.success('Operation was successful!');
-    }, 
+    },
     onError: (error: any) => {
       console.log(error);
       toast(error.response.data.message);
@@ -69,10 +69,10 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
         alt="Login Background"
         layout="fill"
         objectFit="cover"
-        className="absolute inset-0 -z-10 pt-10"
+        className="absolute inset-0 z-10 pt-10"
       />
 
-      <div className="absolute inset-0 flex justify-center items-center pt-14">
+      <div className="absolute inset-0 flex justify-center items-center pt-14  bg-white/80 dark:bg-black/80">
         <div className="w-full max-w-sm rounded-none shadow-2xl p-6 bg-gray-100 bg-opacity-60 flex flex-col justify-center items-center gap-5 z-10 backdrop-blur-3xl px-7">
           <ToastContainer />
           <div className="w-full h-auto flex flex-col justify-center items-center text-white mb-2">
@@ -88,11 +88,11 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
               Register with Facebook
             </Button>
           </div>
-                    <div className="w-full h-auto flex relative items-center">
+          <div className="w-full h-auto flex relative items-center">
             <MdOutlineEmail size={30} className="absolute left-2" />
             <Input
-              type="email" 
-              className="w-full p-3 pl-14 rounded-none shadow-2xl"
+              type="email"
+              className="w-full p-3 pl-14 rounded-none shadow-2xl dark:bg-white/0 dark:text-black/80 dark:placeholder-black"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -101,12 +101,12 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
             <RiLockPasswordLine size={30} className="absolute left-2" />
             <Input
               type={isVisible ? 'text' : 'password'}
-              className="w-full p-3 pl-14 rounded-none shadow-2xl"
+              className="w-full p-3 pl-14 rounded-none shadow-2xl dark:bg-white/0 dark:text-black/80 dark:placeholder-black "
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <Button
-              className="absolute right-0 bottom-0.5"
+              className="absolute right-0 bottom-0.5 bg-white/0  h-9 hover:bg-white/0"
               onClick={() => setIsVisible(!isVisible)}
             >
               {isVisible ? <FaEyeSlash size={30} /> : <FaEye size={30} />}
@@ -116,22 +116,26 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
             <RiLockPasswordLine size={30} className="absolute left-2" />
             <Input
               type={isConfirmVisible ? 'text' : 'password'}
-              className="w-full p-3 pl-14 rounded-none shadow-2xl"
+              className="w-full p-3 pl-14 rounded-none shadow-2xl  dark:bg-white/0 dark:text-black/80 dark:placeholder-black"
               placeholder="Confirm Password"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <Button
-              className="absolute right-0 bottom-0.5"
+              className="absolute right-0 bottom-0.5 bg-white/0 h-9 hover:bg-white/0"
               onClick={() => setIsConfirmVisible(!isConfirmVisible)}
             >
-              {isConfirmVisible ? <FaEyeSlash size={30} /> : <FaEye size={30} />}
+              {isConfirmVisible ? (
+                <FaEyeSlash size={30} />
+              ) : (
+                <FaEye size={30} />
+              )}
             </Button>
           </div>
           <div className="w-full h-auto flex relative items-center">
             <FaUserFriends size={30} className="absolute left-2" />
             <Input
               type="text"
-              className="w-full p-3 pl-14 rounded-none shadow-2xl"
+              className="w-full p-3 pl-14 rounded-none shadow-2xl   dark:bg-white/0 dark:text-black/80 dark:placeholder-black"
               placeholder="Referral Code (optional)"
               onChange={(e) => setRefCode(e.target.value)}
             />
@@ -143,12 +147,22 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
                 onValueChange={(value) => setRole(value)}
               >
                 <div className="flex justify-center items-center gap-5">
-                  <RadioGroupItem value="USER" className='border-gray-800 border-[1px]'/>
-                  <Label className="text-xl font-bold text-gray-800">User </Label>
+                  <RadioGroupItem
+                    value="USER"
+                    className="border-gray-800 border-[1px]"
+                  />
+                  <Label className="text-xl font-bold text-gray-800">
+                    User{' '}
+                  </Label>
                 </div>
                 <div className="flex justify-center items-center gap-5">
-                  <RadioGroupItem value="ADMIN"  className='border-gray-800 border-[1px]'  />
-                  <Label className="text-xl font-bold text-gray-800">Organizer </Label>
+                  <RadioGroupItem
+                    value="ADMIN"
+                    className="border-gray-800 border-[1px]"
+                  />
+                  <Label className="text-xl font-bold text-gray-800">
+                    Organizer{' '}
+                  </Label>
                 </div>
               </RadioGroup>
             </div>

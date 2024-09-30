@@ -1,4 +1,4 @@
-import { verifyToken } from 'src/middleware/verifyToken';
+import { verifyToken } from '../middleware/verifyToken';
 import { PointBalanceController } from '../controllers/poin.balance';
 import { Router } from 'express' ; 
 

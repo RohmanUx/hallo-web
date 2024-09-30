@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import Event from './Event';
+import Event from '../components/Event';
 const listEvents = [
   { id: 1, title: 'Coldplay', image: '/coldplay.jpg' },
   { id: 2, title: 'The Weeknd', image: '/theweeknd.png' },

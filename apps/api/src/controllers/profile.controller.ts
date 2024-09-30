@@ -48,7 +48,7 @@ export class ProfileController {
               referralCode: true,
             },
           },
-          image: true,
+          images: true,
         },
       });
 
@@ -95,6 +95,9 @@ export class ProfileController {
             locationName: location,
           },
         });
+        const files = req.files as Express.Multer.File[];
+        const imagePath =
+          files?.map((file) => `/assets/product/${file.filename}`) || [];
 
         if (findLocation) {
           const createProfile = await prisma.userprofile.create({
@@ -107,7 +110,13 @@ export class ProfileController {
               gender,
               phoneNumber,
               isAdded: true,
-              image: `/assets/profile/${req.file?.filename}`,
+              // images: `/assets/profile/${req.file?.filename}`,
+              images: {
+                create: imagePath.length
+                  ? imagePath.map((path) => ({ path }))
+                  : undefined,
+              },
+
               locationId: findLocation?.id,
             },
           });
@@ -133,7 +142,13 @@ export class ProfileController {
               lastName,
               phoneNumber,
               gender,
-              image: `/assets/profile/${req.file?.filename}`,
+              // images: `/assets/profile/${req.file?.filename}`,
+              images: {
+                create: imagePath.length
+                  ? imagePath.map((path) => ({ path }))
+                  : undefined,
+              },
+
               isAdded: true,
               locationId: createLocation.id,
             },
@@ -170,8 +185,8 @@ export class ProfileController {
           lastName,
           gender,
           dateOfBirth,
-          phoneNumber, 
-          image, 
+          phoneNumber,
+          image,
         } = req.body;
 
         const findUser = await prisma.userprofile.findFirst({
@@ -187,52 +202,63 @@ export class ProfileController {
           });
         }
 
-        if (findUser.image) {
-          const oldImagePath = path.join(
-            __dirname,
-            '../../public',
-            findUser.image,
-          );
-          if (fs.existsSync(oldImagePath)) {
-            fs.unlinkSync(oldImagePath);
-          }
-        }
-        // const files = req.files as Express.Multer.File[];
-        // const imagePaths = files
-        //   ? files?.map((file) => `/assets/product/${file.filename}`)
-        //   : [];
- // Handle file uploads
-const files = req.files as Express.Multer.File[];
-const imagePaths = files?.map((file) => `/assets/product/${file.filename}`) || [];
+        // if (findUser.images) {
+        //   const oldImagePath = path.join(
+        //     __dirname,
+        //     '../../public',
+        //     findUser.images,
+        //   );
+        //   if (fs.existsSync(oldImagePath)) {
+        //     fs.unlinkSync(oldImagePath);
+        //   }
+        // }
+        // if (findUser?.images?.length > 0) {
+        //   findUser.images.forEach((image) => {
+        //     const oldImagePath = path.join(__dirname, '../../public', image.path);
+        //     if (fs.existsSync(oldImagePath)) {
+        //       fs.unlinkSync(oldImagePath);
+        //     }
+        //   });
 
-const updatedProfile = await prisma.userprofile.update({
-  data: {
-    address: address ? address : findUser?.address,
-    firstName: firstName ? firstName : findUser?.firstName,
-    lastName: lastName ? lastName : findUser?.lastName,
-    gender: gender ? gender : findUser?.gender,
-    phoneNumber: phoneNumber ? phoneNumber : findUser?.phoneNumber,
-    dateOfBirth: dateOfBirth
-      ? new Date(dateOfBirth).toISOString()
-      : findUser?.dateOfBirth,
+        // Handle file uploads
+        const files = req.files as Express.Multer.File[];
+        const imagePaths =
+          files?.map((file) => `/assets/product/${file.filename}`) || [];
 
-    // Assuming `image` is a one-to-many relationship with an Image table
-  //   image: imagePaths.length
-  //     ? {
-  //         // If images already exist, you might want to update them
-  //         // Otherwise, you'll create new ones for each path
-  //         create: imagePaths.map((path) => ({
-  //           path,
-  //         })),
-  //       }
-  //     : undefined, // If no new images are uploaded, skip this step
-  },
-  where: {
-    id: findUser?.id,
-  },
-});
+        const updatedProfile = await prisma.userprofile.update({
+          data: {
+            address: address ? address : findUser?.address,
+            firstName: firstName ? firstName : findUser?.firstName,
+            lastName: lastName ? lastName : findUser?.lastName,
+            gender: gender ? gender : findUser?.gender,
+            phoneNumber: phoneNumber ? phoneNumber : findUser?.phoneNumber,
+            dateOfBirth: dateOfBirth
+              ? new Date(dateOfBirth).toISOString()
+              : findUser?.dateOfBirth,
+            // images: { create: imagePaths.map((path) => ({ path })) },
+             images: {
+              updateMany: imagePaths.map((path) => ({
+                where: { id: image }, // Specify the condition for which images to update
+                data: { path }, // Update the path with the new one
+              })),
+            },
+        
+            // use if string
+            //   // Assuming `image` is a one-to-many relationship with an Image table
+            //   images: imagePaths.length 
+            //             images: {
+            //   create: imagePaths.length
+            //     ? imagePaths.map((path) => ({ path }))
+            //     : undefined,
+            // },
+            // },
+          },
 
-
+          where: {
+            id: findUser?.id,
+          },
+        });
+        console.log(updatedProfile);
         return res.status(200).send({
           success: false,
           message: 'Profile updated succesfully',
