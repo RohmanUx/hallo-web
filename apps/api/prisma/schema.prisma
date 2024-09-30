@@ -1,21 +1,311 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-generator client {
+  generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
-}
+  url      = env("DATABASE_URL")  
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 
-model Sample {
-  id        Int      @id @default(autoincrement())
-  name      String
-  code      String   @unique
+   }
+
+model category {
+  id           Int            @id @unique(map: "id") @default(autoincrement())
+  categoryName String       @db.VarChar(255)
+   event        event[]
+  userinterest userinterest[]
+}
+ 
+model Promotion {
+  id       Int       @id @default(autoincrement())
+  event    event     @relation(fields: [eventId], references: [id])
+  eventId  Int
+  seats    Int
+  discount Float
+  validFrom DateTime
+  validTo  DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+} 
 
-  @@map("samples") // if you want to use snake_case format
+model discountcode {
+  id            Int             @id @unique(map: "id") @default(autoincrement())
+  code          String         @unique  
+  amount        Int  
+  validFrom     DateTime        @db.Date
+  validTo       DateTime        @db.Date
+  limit         Int
+  codeStatus    code_status
+  createdAt     DateTime        @default(now()) @db.Timestamp(0)
+  discountusage discountusage[]
 }
+
+model discountusage {
+  id           Int          @id @unique(map: "id") @default(autoincrement())
+  userId       Int
+  discountId   Int
+  usedAt       DateTime     @default(now()) @db.Timestamp(0)
+  user         user         @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "DiscountUsage_fk1")
+  discountcode discountcode @relation(fields: [discountId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "DiscountUsage_fk2")
+
+  @@index([userId], map: "DiscountUsage_fk1")
+  @@index([discountId], map: "DiscountUsage_fk2")
+}
+
+model event {
+  id             Int              @id @unique(map: "id") @default(autoincrement())
+  userId         Int
+  categoryId     Int 
+  promotions Promotion[] 
+  title          String           @db.VarChar(255)
+  description    String           @db.Text
+  price          Int 
+  totalSeats     Int  
+  images          image[]         
+  locationId     Int
+  startTime      DateTime         @db.DateTime(0)
+  endTime        DateTime         @db.DateTime(0)
+  createdAt      DateTime         @default(now()) @db.Timestamp(0)
+  ticketType     event_type
+  isDeleted      Boolean
+  statusEvent    status_event?
+  user           user             @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Event_fk1")
+  category       category         @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Event_fk2")
+  location       location         @relation(fields: [locationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Event_fk7")
+  eventinterest  eventinterest[]
+  eventstatistic eventstatistic[]
+  filter         filter[]
+  historyuser    historyuser[]
+  labelevent     labelevent[]
+  seat           seat[]
+  testimonial    testimonial[]
+  ticket         ticket[]
+
+  @@index([userId], map: "Event_fk1")
+  @@index([categoryId], map: "Event_fk2")
+  @@index([locationId], map: "Event_fk7")
+}
+
+  model eventinterest {
+  id             Int          @id @unique(map: "id") @default(autoincrement())
+  userInterestId Int
+  eventId        Int
+  userinterest   userinterest @relation(fields: [userInterestId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "EventInterest_fk1")
+  event          event        @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "EventInterest_fk2")
+
+  @@index([userInterestId], map: "EventInterest_fk1")
+  @@index([eventId], map: "EventInterest_fk2")
+}
+
+model eventstatistic {
+  id               Int      @id @unique(map: "id") @default(autoincrement())
+  eventId          Int
+  totalAttendance  Int
+  totalTicketsSold Int
+  totalRevenue     Int
+  createdAt        DateTime @default(now()) @db.Timestamp(0)
+  event            event    @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "EventStatistic_fk1")
+
+  @@index([eventId], map: "EventStatistic_fk1")
+}
+
+model filter {
+  id         Int    @id @unique(map: "id") @default(autoincrement())
+  eventId    Int
+  searchName String @db.VarChar(255)
+  event      event  @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Filter_fk1")
+
+  @@index([eventId], map: "Filter_fk1")
+}
+
+model historyuser {
+  id      Int   @id @unique(map: "id") @default(autoincrement())
+  eventId Int
+  userId  Int
+  event   event @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "HistoryUser_fk1")
+  user    user  @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "HistoryUser_fk2")
+
+  @@index([eventId], map: "HistoryUser_fk1")
+  @@index([userId], map: "HistoryUser_fk2")
+}
+
+model label {
+  id         Int          @id @unique(map: "id") @default(autoincrement())
+  labelName  String       @db.VarChar(255)
+  labelevent labelevent[]
+}
+
+model labelevent {
+  id      Int   @id @unique(map: "id") @default(autoincrement())
+  labelId Int
+  eventId Int
+  label   label @relation(fields: [labelId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "LabelEvent_fk1")
+  event   event @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "LabelEvent_fk2")
+
+  @@index([labelId], map: "LabelEvent_fk1")
+  @@index([eventId], map: "LabelEvent_fk2")
+}
+
+model location {
+  id           Int           @id @unique(map: "id") @default(autoincrement())
+  locationName String        @db.VarChar(255)
+  event        event[]
+  userprofile  userprofile[]
+}
+
+model seat {
+  id             Int      @id @unique(map: "id") @default(autoincrement())
+  eventId        Int
+  totalSeats     Int
+  availableSeats Int
+  createdAt      DateTime @default(now()) @db.Timestamp(0)
+  event          event    @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Seat_fk1")
+
+  @@index([eventId], map: "Seat_fk1")
+}
+
+model testimonial {
+  id                Int      @id @unique(map: "id") @default(autoincrement())
+  userId            Int
+  eventId           Int
+  reviewDescription String   @db.Text
+  rating            Int
+  createdAt         DateTime @default(now()) @db.Timestamp(0)
+  user              user     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Testimonial_fk1")
+  event             event    @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Testimonial_fk2")
+
+  @@index([userId], map: "Testimonial_fk1")
+  @@index([eventId], map: "Testimonial_fk2")
+}
+
+model ticket {
+  id              Int      @id @unique(map: "id") @default(autoincrement())
+  eventId         Int
+  userId          Int
+  qty             Int
+  total           Int
+  status          paid_status
+  transactionDate DateTime @default(now()) @db.Timestamp(0)
+  event           event    @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Ticket_fk1")
+  user            user     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Ticket_fk2")
+
+  @@index([eventId], map: "Ticket_fk1")
+  @@index([userId], map: "Ticket_fk2")
+}
+
+model user {
+  id               Int             @unique(map: "id") @default(autoincrement())
+  identificationId String
+  email            String          @unique(map: "email") @db.VarChar(255)
+  password         String          @db.VarChar(255)
+  referralCode     String          @db.VarChar(255)
+  referredBy       Int?
+  points           Int?          @default(0)  
+  role             role  
+  balance          Int      
+  tryCount         Int             @default(0)
+  isBlocked        Boolean         @default(false)
+  isDeleted        Boolean         @default(false)
+  createdAt        DateTime        @default(now()) @db.Timestamp(0)
+  discountusage    discountusage[]
+  event            event[]
+  historyuser      historyuser[]
+  point            point[] 
+    testimonial      testimonial []
+  ticket           ticket[]
+  user             user?           @relation("userTouser", fields: [referredBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "User_fk5")
+  other_user       user[]          @relation("userTouser")
+  userinterest     userinterest[]
+  userprofile      userprofile[]
+
+  @@id([id, identificationId])
+  @@index([referredBy], map: "User_fk5")
+}
+
+model userinterest {
+  id            Int             @id @unique(map: "id") @default(autoincrement())
+  userId        Int
+  categoryId    Int
+  eventinterest eventinterest[]
+  user          user            @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserInterest_fk1")
+  category      category        @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserInterest_fk2")
+
+  @@index([userId], map: "UserInterest_fk1")
+  @@index([categoryId], map: "UserInterest_fk2")
+}
+
+model userprofile {
+  id          Int       @id @unique(map: "id") @default(autoincrement())
+  userId      Int
+  firstName    String?    @db.VarChar(255)
+  lastName    String?    @db.VarChar(255)
+  gender      gender?
+  dateOfBirth DateTime? @db.Date
+  image            String?           @db.VarChar(500)
+  address     String?    @db.VarChar(255)
+  phoneNumber String?    @db.VarChar(255)
+  isAdded     Boolean?    @default(false)
+  locationId  Int
+  user        user      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserProfile_fk1")
+  location    location  @relation(fields: [locationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserProfile_fk5")
+
+  @@index([userId], map: "UserProfile_fk1")
+  @@index([locationId], map: "UserProfile_fk5")
+}
+
+model point {
+  id        Int      @id @unique(map: "id") @default(autoincrement())
+  userId    Int
+  amount    Int
+  validFrom DateTime @db.DateTime(0)
+  validTo   DateTime @db.DateTime(0)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  user      user     @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Point_fk1")
+
+  @@index([userId], map: "Point_fk1")
+}
+
+model BlacklistToken {
+  id  Int @id @default(autoincrement())
+  token String
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+}
+
+model image{
+  id Int @id @default(autoincrement())
+  path String 
+  eventId Int 
+  event event @relation(fields: [eventId], references: [id])
+}
+
+enum paid_status{
+  PAID
+  UNPAID
+}
+
+enum role{
+  USER
+  ADMIN
+}
+
+enum status_event{
+  AVAILABLE
+  SOLD_OUT
+  ENDED
+}
+
+enum event_type{
+  PAID
+  FREE
+}
+
+enum code_status{
+  USED
+  AVAILABLE
+}
+
+enum gender{
+  MALE 
+  FEMALE
+} 
+  
