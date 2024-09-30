@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image';
 import withRole from '@/hoc/roleGuard';
 import Markdown from 'markdown-to-jsx';
-import { ClassNames } from '@emotion/react';
 import {
   Carousel,
   CarouselContent,

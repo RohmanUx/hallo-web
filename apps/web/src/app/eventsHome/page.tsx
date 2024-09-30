@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/carousel'; // Import Carousel dari ShadCN UI
 import Animation from '../layout/circle';
 import CircularText from '../layout/circle';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 type Event = {
   ticketType: string;
@@ -238,7 +237,7 @@ const CategoryList: React.FC = () => {
                       const isEnded = currentTime > endTime;
 
                       return (
-                        <div className="grid grid-cols-1 mt-2 p-0 mx-0 px-0 rounded-3xl">
+                        <div className="grid grid-cols-1 mt-2 p-0 mx-0 px-0 rounded-3xl" key={event.id}>
                           <div
                             key={event.id}
                             className="p-2 sm:p-2 lg:p-2 lg:pb-4 flex flex-col items-center py-0 font-sans shadow-md hover:shadow-lg transition-shadow cursor-pointer bg-orange-900/10 border-[1px] border-black/40 backdrop-blur-3xl rounded-2xl"
