@@ -102,7 +102,7 @@ export class AuthController {
     }
   }
 
-  async login (req: Request, res: Response, next: NextFunction) {
+  async login(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, password } = req.body;
 
@@ -111,20 +111,19 @@ export class AuthController {
 
       // Find user by email
       const user = await prisma.user.findUnique({
-        where: { 
-          email, 
-
-         },
-      }); 
+        where: {
+          email,
+        },
+      });
       if (user) {
         // Count the number of events associated with the user
         const totalEvent = await prisma.event.count({
           where: {
-            userId: user.id,  // Assuming `userId` is the foreign key in the `event` table
+            userId: user.id, // Assuming `userId` is the foreign key in the `event` table
           },
-        }); 
-      } 
-            if (!user) {
+        });
+      }
+      if (!user) {
         return res.status(401).json({
           success: false,
           message: 'Invalid email or password.',
@@ -179,15 +178,15 @@ export class AuthController {
       const userId = res.locals.decrypt.id;
 
       const user = await prisma.user.findUnique({
-        where: { id: userId }, 
+        where: { id: userId },
         include: {
           userprofile: true,
-          images: true, 
-        }
+          //   images: true,
+        },
       });
 
       const profile = await prisma.userprofile.findFirst({
-        where: { userId },
+        where: { userId, images: { } },
       });
 
       if (!user) {
@@ -207,15 +206,15 @@ export class AuthController {
           role: user.role,
           points: user.points,
           balance: user.balance,
-          images: user.images,  
-          token, 
+          //   images: user.images,
+          token,
         },
       });
     } catch (error) {
       console.error(error);
       next({ success: false, message: 'Failed to fetch user data.' });
     }
-  } 
+  }
 
   async forgotPassword(req: Request, res: Response, next: NextFunction) {
     try {

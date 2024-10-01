@@ -86,7 +86,7 @@ export class ProfileController {
 
         if (!findUser) {
           return res.status(404).send({
-            succesS: false,
+            success: false,
             message: 'Profile not found',
           });
         }

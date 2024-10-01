@@ -20,7 +20,7 @@ export class AuthRouter {
     this.initializeRoutes();
   }
 
-  private initializeRoutes ( ) : void {
+  private initializeRoutes(): void {
     this.router.post(
       '/login',
       loginValidation,
@@ -50,4 +50,4 @@ export class AuthRouter {
   getRouter(): Router {
     return this.router;
   }
-} 
+}
