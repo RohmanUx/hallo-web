@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
+    "build": "nodemon run build",
+    "dev": "nodemon start.js", 
     "lint": "turbo run lint",
     "test": "turbo run test",
     "serve": "turbo run serve",

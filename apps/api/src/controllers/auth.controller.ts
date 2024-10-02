@@ -181,12 +181,14 @@ export class AuthController {
         where: { id: userId },
         include: {
           userprofile: true,
-          //   images: true,
+             images: true,
         },
       });
 
       const profile = await prisma.userprofile.findFirst({
-        where: { userId, images: { } },
+        where: { userId, 
+
+         },
       });
 
       if (!user) {
