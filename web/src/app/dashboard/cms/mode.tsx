@@ -18,8 +18,13 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({ darkMode, setDarkMode }) => {
         onClick={toggleDarkMode}
         className={`flex items-center space-x-2 px-3 py-[5px] rounded-full shadow-md transition-colors hover:shadow-lg focus:outline-none justify-center ${
           darkMode
+<<<<<<< HEAD:web/src/app/dashboard/cms/mode.tsx
           ? 'bg-black/80 text-white hover:bg-blue-500 rounded-full backdrop-blur-3xl border border-black/40'
             : 'bg-white/80 text-black hover:bg-yellow-400 rounded-full border border-black/20'
+=======
+            ? 'bg-white/80 text-black hover:bg-yellow-400 rounded-full'
+            : 'bg-black/80 text-white hover:bg-blue-500 rounded-full backdrop-blur-3xl border border-black/40 dark:border-white/80'
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/src/app/dashboard/cms/mode.tsx
         }`} 
       >
         {darkMode 

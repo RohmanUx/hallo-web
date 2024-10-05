@@ -158,7 +158,7 @@ const Profile = () => {
                   ) : (
                     <p className="text-gray-900">No profile image</p>
                   )}
-                </div>
+                </div> 
                 <h2 className="text-xl text-gray-900 mb-2">
                   Name: {get.firstName} {get.lastName}
                 </h2>

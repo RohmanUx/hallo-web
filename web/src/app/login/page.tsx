@@ -91,12 +91,19 @@ const LoginPage = () => {
               </button>
             </div>
             <div className="text-center">
+<<<<<<< HEAD:web/src/app/login/page.tsx
               <a href="/forgot-password" className="text-gray-950 ">
                 Reset password? or
                 <Link href="/register" className="underline">
+=======
+              <Link href="/forgot-password" className="text-gray-950">
+                Reset password? 
+              </Link> 
+              <span> or </span> 
+                <Link href="/register" className="ml-1 underline">
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/src/app/login/page.tsx
                   Register Now
                 </Link>
-              </a>
             </div>
           </div>
         </div>

@@ -14,7 +14,11 @@
 /out/
 .turbo
 # production ~ 
+<<<<<<< HEAD:web/.gitignore
 /build
+=======
+# /build
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/.gitignore
 
 # misc
 .DS_Store

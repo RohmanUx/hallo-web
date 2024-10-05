@@ -28,7 +28,7 @@ const Dashboard: React.FC = () => {
           <div className="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl px-4 flex justify-center">
             <div
               onClick={() => handleNavigation('dashboard/eventCheck')}
-              className="cursor-pointer p-6 bg-gray-0 border-gray-900/40 border-[1px] bg-opacity-80 rounded-sm shadow-md backdrop-blur-md"
+              className="cursor-pointer p-6 bg-gray-0 border-gray-900/40 border-[1px] bg-opacity-80 rounded-sm shadow-md backdrop-blur-md h-[340px] flex items-center flex-col justify-center"
             >
               <AiFillAlert className="text-5xl sm:text-6xl text-gray-900/80 mx-auto mb-4 w-20 md:w-40" />
               <h2 className="text-sm sm:text-2xl md:text-2xl font-bold text-center text-gray-900">
@@ -38,16 +38,17 @@ const Dashboard: React.FC = () => {
 
             <div
               onClick={() => handleNavigation('/dashboard/profile')}
-              className="cursor-pointer p-6 bg-gray-0 border-gray-900/40 border-[1px] bg-opacity-80 rounded-sm shadow-md backdrop-blur-md"
+              className="cursor-pointer p-6 bg-gray-0 border-gray-900/40 border-[1px] bg-opacity-80 rounded-sm shadow-md backdrop-blur-md w-[340px] h-[340px] flex items-center flex-col justify-center"
             >
               <AiFillCodepenCircle className="text-5xl sm:text-6xl text-gray-900/80 mx-auto mb-4 w-20 md:w-40" />
               <h2 className="text-sm sm:text-2xl md:text-2xl font-bold text-center text-gray-900">
                 Profile
               </h2>
-            </div>
+            </div> 
+            <div className=''> 
             <div
               onClick={() => handleNavigation('/dashboard/balance')}
-              className="cursor-pointer p-6 bg-gray-0 border-gray-900/40 border-[1px] bg-opacity-80 rounded-sm shadow-md backdrop-blur-md"
+              className="cursor-pointer p-6 bg-gray-0 border-gray-900/40 border-[1px] bg-opacity-80 rounded-sm shadow-md backdrop-blur-md mb-6"
             >
               <AiFillAlipayCircle className="text-5xl sm:text-6xl text-gray-900/80 mx-auto mb-4 w-20 md:w-40" />
               <h2 className="text-sm sm:text-2xl md:text-2xl font-bold text-center text-gray-900">
@@ -62,7 +63,7 @@ const Dashboard: React.FC = () => {
               <h2 className="text-sm sm:text-2xl md:text-2xl font-bold text-center text-gray-900">
                 Help request
               </h2>
-            </div>
+            </div> </div> 
           </div>
           <div className="text-md w-full justify-center text-center py-10 text-gray-700">
             {' '}

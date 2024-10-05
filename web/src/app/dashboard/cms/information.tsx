@@ -28,6 +28,7 @@ const PromoBanner = () => {
   return (
     <div className='mx-20'>
       {showPromo && (
+<<<<<<< HEAD:web/src/app/dashboard/cms/information.tsx
         <div className="fixed top-0 left-0 right-0 dark:bg-black/60 bg-gray-100/80 dark:text-white/60 text-black/80 py-[1px] px-5 flex justify-between items-center z-50 shadow-lg my-14 xl:lg:mx-56 mx-4 rounded-3xl backdrop-blur-3xl border border-black/10 dark:border-white/20 text-sm text-center">
         <div className='flex'>
           <p> Join our exciting webinar on modern articles and new trends! Access <u>via Zoom.</u> Location: Canada. Don’t miss out!      <span className='text-gray-600 mx-2'>{formatTime(timeLeft)} </span> </p> 
@@ -37,6 +38,17 @@ const PromoBanner = () => {
         </button>
       </div>
             )}
+=======
+        <div className="fixed top-0 left-0 right-0 dark:bg-black/60 bg-white/80 dark:text-white/60 text-black/80 py-1 px-5 flex justify-between items-center z-50 shadow-lg my-12 xl:lg:mx-56 mx-4  rounded-3xl backdrop-blur-3xl border border-black/20 dark:border-white/20 text-sm">
+          <div>
+            <strong>Promo!</strong> Gunakan kode <strong>PROMOBLACKFRIDAY</strong> untuk mendapatkan diskon di setiap event yang dipromosikan. Waktu: <strong>{formatTime(timeLeft)}</strong>
+          </div>
+          <button className="text-black/80 font-bold text-sm dark:text-white/80" onClick={closePromo}>
+            ✖
+          </button>
+        </div>
+      )}
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/src/app/dashboard/cms/information.tsx
     </div>
   );
 };

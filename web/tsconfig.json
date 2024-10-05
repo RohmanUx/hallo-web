@@ -1,11 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2015",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
+<<<<<<< HEAD:web/tsconfig.json
     "skipLibCheck": true,
     "checkJs": false,
     "strict": true,
+=======
+    "skipLibCheck": true, 
+    "checkJs": false, 
+    "strict": true, 
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/tsconfig.json
     "baseUrl": "./",
     "noEmit": true,
     "esModuleInterop": true,
@@ -20,11 +30,18 @@
       }
     ],
     "paths": {
+<<<<<<< HEAD:web/tsconfig.json
       "@/*": ["./src/*"]
+=======
+      "@/*": [
+        "./src/*"
+      ]
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/tsconfig.json
     },
     "incremental": true
   },
   "include": [
+<<<<<<< HEAD:web/tsconfig.json
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
@@ -33,4 +50,15 @@
     "src/app/dashboard/cms/contentful/page.tsx"
   ],
   "exclude": ["node_modules"]
+=======
+  "next-env.d.ts",
+  "**/*.ts",
+  "**/*.tsx",
+  ".next/types/**/*.ts",
+  "src/**/*.tsx" // Ensure this path is included
+],
+  "exclude": [
+    "node_modules"
+  ]
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/tsconfig.json
 }

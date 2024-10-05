@@ -159,7 +159,7 @@ const CategoryList: React.FC = () => {
                   </h1>
                 </div>
                 <div className="mb-5 sm:mb-5 flex flex-nowrap justify-center font-sans rounded-md space-x-1 sm:space-x-2 lg:space-x-4 flex-col items-center ">
-                  <div className="py-0 space-x-1 text-center w-[800px]">
+                  <div className="py-0 space-x-1 text-center">
                     {' '}
                     {/* Category Filter */}
                     {categories.length > 0 ? (
@@ -192,7 +192,7 @@ const CategoryList: React.FC = () => {
                         &lt;
                       </button>
 
-                      <div className="flex overflow-hidden xl:w-[800px] sm:w-40">
+                      <div className="flex overflow-hidden">
                         <div
                           className="flex transition-transform"
                           style={{
@@ -205,10 +205,10 @@ const CategoryList: React.FC = () => {
                               {/* Adjusted widths for better responsiveness */}
                               <Button
                                 onClick={() => handleLocationClick(location.id)}
-                                className={`px-1 sm:px-2 lg:px-4 py-1 lg:py-1 rounded-full font-semibold transition-transform font-sans text-xs lg:text-base transform border-black/60 border-[1px] mx-1 ${
+                                className={`px-1 sm:px-2 lg:px-4 py-1 lg:py-1 rounded-full font-semibold transition-transform font-sans text-xs lg:text-base transform border-black/60 border-[1px] mx-1 dark:text-white/80 hover:text-white/80 text-black/80 dark:bg-black/80 ${
                                   currentLocation === location.id
                                     ? 'bg-gray-400 text-gray-900'
-                                    : 'bg-gray-300 text-gray-900'
+                                    : 'bg-gray-600 text-gray-100'
                                 }`}
                               >
                                 {location.locationName}
@@ -227,7 +227,7 @@ const CategoryList: React.FC = () => {
                     </div>
                   </div>{' '}
                 </div>
-                <div className="space-y-2 sm:md:xl:lg:w-[1200px] grid grid-cols-1 grid-rows-3 sm:grid-cols-3 gap-4 mx-0 xl:grid-cols-4 xl:h-[1990px] lg:h-[2500px] md:h-[2400px] h-[6300px] ">
+                <div className="space-y-2 sm:md:xl:lg:w-[1200px] grid grid-cols-1 grid-rows-3 gap-5 sm:grid-cols-3 sm:grid-rows-3 mx-0 xl:grid-cols-4 xl:h-[1990px] lg:h-[2500px] md:h-[2400px] ">
                   {filteredEvents.length > 0 ? (
                     paginate(filteredEvents).map((event) => {
                       const currentTime = new Date().getTime();
@@ -238,7 +238,7 @@ const CategoryList: React.FC = () => {
                       const isEnded = currentTime > endTime;
 
                       return (
-                        <div className="grid grid-cols-1 mt-2 p-0 mx-0 px-0 rounded-3xl">
+                        <div className="grid grid-cols-1 mt-2 p-0 mx-0 px-0 rounded-3xl h-[500px] w-[300px]">
                           <div
                             key={event.id}
                             className="p-2 sm:p-2 lg:p-2 lg:pb-4 flex flex-col items-center py-0 font-sans shadow-md hover:shadow-lg transition-shadow cursor-pointer bg-orange-900/10 border-[1px] border-black/40 backdrop-blur-3xl rounded-2xl"
@@ -247,12 +247,17 @@ const CategoryList: React.FC = () => {
                             <div className="h-56 mb-0 rounded-3xl">
                               <Carousel>
                                 <CarouselContent
-                                  style={{ transform: `translateX(-${100}%)` }}
+                                  style={{ transform: `translateX(-${100}%)` }} 
+                                  className='ml-0'
                                 >
                                   {event.images.map((image) => (
                                     <CarouselItem
                                       key={image.id}
+<<<<<<< HEAD:web/src/app/eventsHome/page.tsx
                                       className="flex-shrink-0 w-full rounded-3xl flex justify-center"
+=======
+                                      className="flex-shrink-0 w-full rounded-3xl flex justify-center m-0 pl-0"
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/src/app/eventsHome/page.tsx
                                     >
                                       <Image
                                         src={`http://localhost:8000${image.path}`}
@@ -274,20 +279,20 @@ const CategoryList: React.FC = () => {
                               {event.description}
                             </p>
                             <div className="flex flex-wrap">
-                              <div className="text-gray-600 font-sans bg-gray-100 flex rounded-full pl-3 py-0 text-sm lg:text-base items-center text-center">
+                              <div className="dark:text-black/80 text-white/80 font-sans bg-black/80 dark:bg-white/80 flex rounded-full pl-3 py-0 text-sm lg:text-base items-center text-center">
                                 location:
-                                <span className="text-gray-600 font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
+                                <span className="dark:text-black/80 text-white/80 font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
                                   {event.location.locationName}
                                 </span>
                               </div>
-                            </div>
+                            </div>  
                             <div
                               className={`text-${
                                 isEnded ? 'red' : isOngoing ? 'green' : 'gray'
-                              }-600 font-sans bg-gray-100 rounded-full pl-3 flex text-sm lg:text-base my-2`}
+                              }-600 font-sans dark:text-black/80 text-white/80 bg-black/80 dark:bg-white/80 rounded-full pl-3 flex text-sm lg:text-base my-2`}
                             >
                               status:
-                              <span className="text-gray-600 font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
+                              <span className="dark:text-black/80 text-white/80 font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
                                 {isEnded
                                   ? 'Ended'
                                   : isOngoing
@@ -295,21 +300,21 @@ const CategoryList: React.FC = () => {
                                     : 'Upcoming'}
                               </span>
                             </div>
-                            <div className="text-gray-600 font-sans bg-gray-100 flex rounded-full pl-3 my-0 text-sm lg:text-base">
+                            <div className="text-gray-600 font-sans dark:text-black/80 text-white/80 bg-black/80 dark:bg-white/80 flex rounded-full pl-3 my-0 text-sm lg:text-base">
                               ticket:
-                              <span className="text-gray-600 font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
+                              <span className="dark:text-black/80 text-white/80 font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
                                 {event.ticketType}
                               </span>
                             </div>
-                            <div className="text-gray-600 font-sans bg-gray-100 flex rounded-full pl-3 mt-2 text-sm lg:text-base">
+                            <div className="text-gray-600 font-sans dark:text-black/80 text-white/80 bg-black/80 dark:bg-white/80 flex rounded-full pl-3 mt-2 text-sm lg:text-base">
                               Category:
-                              <span className="font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0 text-green-800">
+                              <span className="font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0 dark:text-black/80 text-white/80 ">
                                 {event.category?.categoryName}
                               </span>
                             </div>
-                            <div className="text-gray-600 font-sans bg-gray-100 rounded-full pl-3 flex my-2 text-sm lg:text-base">
+                            <div className="text-gray-600 font-sans dark:text-black/80 text-white/80 bg-black/80 dark:bg-white/80 rounded-full pl-3 flex my-2 text-sm lg:text-base">
                               seats:
-                              <span className="text-gray-600 font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
+                              <span className=" dark:text-black/80 text-white/80  font-sans bg-gray-0 flex rounded-full px-1 mr-1 py-0">
                                 {event.totalSeats}
                               </span>
                             </div>

@@ -101,7 +101,11 @@ const Register: React.FunctionComponent<IRegisterProps> = (props) => {
             <RiLockPasswordLine size={30} className="absolute left-2" />
             <Input
               type={isVisible ? 'text' : 'password'}
+<<<<<<< HEAD:web/src/app/register/page.tsx
               className="w-full p-3 pl-14 rounded-none shadow-2xl dark:bg-white/0 dark:text-black/80 dark:placeholder-black hover:border-black/0 hover:border"
+=======
+              className="w-full p-3 pl-14 rounded-none shadow-2xl dark:bg-white/0 dark:text-black/80 dark:placeholder-black "
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/src/app/register/page.tsx
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />

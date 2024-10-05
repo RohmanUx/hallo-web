@@ -173,7 +173,24 @@ export const Navbar: React.FC = () => {
               </PopoverContent>
             </Popover>
           ) : (
+<<<<<<< HEAD:web/src/app/layout/navbar.tsx
             <div className="hidden md:flex space-x-2"></div>
+=======
+            <div className="hidden md:flex space-x-2">
+              <Button
+                className="border text-sm rounded-full dark:bg-white/80 hover:bg-gray-200 py-1 px-4 border-black/40 font-medium bg-black/80 dark:text-black text-white/80"
+                onClick={() => router.replace('/login')}
+              >
+                Login
+              </Button>
+              <Button
+                className="text-sm font-medium border border-black/60 rounded-full text-white/80 dark:text-black/80 bg-black/80 dark:bg-white/80"
+                onClick={() => router.replace('/register')}
+              >
+                Register
+              </Button>
+            </div>
+>>>>>>> 47a3022d26cd6e6372d55868bdd29aeba3ec4002:apps/web/src/app/layout/navbar.tsx
           )}
         </div>
 
